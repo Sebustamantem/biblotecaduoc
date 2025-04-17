@@ -14,20 +14,5 @@ public class LibroService {
         return libroRepository.obtenerLibros();
     }
 
-    public Libro saveLibro(Libro libro) {
-        return libroRepository.guardarLibro(libro);
-    }
-
-    public Libro getLibroId(int id) {
-        return libroRepository.buscarPorId(id);
-    }
-
-    public Libro updateLibro(Libro libro) {
-        return libroRepository.actualizar(libro);
-    }
-
-    public String deleteLibro(int id) {
-        libroRepository.eliminarLibro(id);
-        return "Libro eliminado con éxito";
-    }
+    
 }
