@@ -14,5 +14,4 @@ public class LibroService {
         return libroRepository.obtenerLibros();
     }
 
-    
 }

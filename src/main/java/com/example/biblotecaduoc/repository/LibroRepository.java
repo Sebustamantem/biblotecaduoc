@@ -9,16 +9,13 @@ import java.util.List;
 @Repository
 public class LibroRepository {
 
-    //Arreglo que guardara todos los libros
     private List<Libro> listaLibros = new ArrayList<>();
 
-    //Metodo que retorna todos los libros
     public List<Libro> obtenerLibros() {
         return listaLibros;
     }
 
-    //Buscar un Libro por su id
-    public Libro buscarPorId (int id) {
+    public Libro buscarPorId(int id) {
         for (Libro libro : listaLibros) {
             if (libro.getId() == id) {
                 return libro;
@@ -27,9 +24,7 @@ public class LibroRepository {
         return null;
     }
 
-
-    //Buscar un libro por su ISBN
-    public Libro buscarLibroPorIsbn (String isbn) {
+    public Libro buscarLibroPorIsbn(String isbn) {
         for (Libro libro : listaLibros) {
             if (libro.getIsbn().equals(isbn)) {
                 return libro;
@@ -43,53 +38,35 @@ public class LibroRepository {
         return lib;
     }
 
-    public Libro actualizar (Libro lib) {
-        int id = 0;
-        int idPosicion = 0;
+    public Libro actualizar(Libro lib) {
+        int idPosicion = -1;
 
-        for (Libro libro : listaLibros.size(); i++) {
+        for (int i = 0; i < listaLibros.size(); i++) {
             if (listaLibros.get(i).getId() == lib.getId()) {
-                id = lib.getId();
-                idPosicion = i;
-            }
-        }
-
-        Libro libro1 = Libro();
-        libro1.setId(id);
-        libro1.setTitulo(lib.getTitulo());
-        libor1.setAutor(lib.getAutor());
-        libro1.setFechaPublicacion(lib.getFechaPublicacion());
-        libro1.setEditorial(lib.getEditorial()
-        libro1.setIsbn(lib.getIsbn());
-
-        listaLibros.set(idPosicion, libro1);
-        return libro1;
-    }
-
-    //Eliminar Libro por id
-
-    public void eliminarLibro(int id) {
-        Libro libro = buscarPorId(id);
-        if (libro != null) {
-            listaLibros.remove(libro);
-        }
-        //Otra forma de eliminar un libro por id
-        int idPosicion = 0;
-        for(int i = 0; i < listaLibros.size(); i++) {
-            if (listaLibros.get(i)).getId() == id) {
                 idPosicion = i;
                 break;
             }
         }
-        if (idPosicion > 0) {
-            listaLibros.remove(idPosicion);
+
+        if (idPosicion == -1) {
+            return null; // Libro no encontrado
         }
 
-        //Otra forma de eliminar un libro por id
+        Libro libroActualizado = new Libro();
+        libroActualizado.setId(lib.getId());
+        libroActualizado.setTitulo(lib.getTitulo());
+        libroActualizado.setAutor(lib.getAutor());
+        libroActualizado.setFechaPublicacion(lib.getFechaPublicacion());
+        libroActualizado.setEditorial(lib.getEditorial());
+        libroActualizado.setIsbn(lib.getIsbn());
 
-        listaLibros.removeIf(libro -> libro.getId() == id);
-
+        listaLibros.set(idPosicion, libroActualizado);
+        return libroActualizado;
     }
 
-
+    public void eliminarLibro(int id) {
+        // 1. Usar removeIf es suficiente
+        listaLibros.removeIf(libro -> libro.getId() == id);
+    }
 }
+
